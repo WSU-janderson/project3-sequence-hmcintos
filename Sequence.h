@@ -9,7 +9,6 @@ public:
 
     Node(int value = 0) : data(value), next(nullptr), prev(nullptr) {}
 };
-
 #endif
 
 #ifndef linkedList_h

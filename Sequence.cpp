@@ -6,4 +6,61 @@
  * Project 3 Sequence
  */
 
- 
+#include <iostream>
+#include "Sequence.h"
+
+using namespace std;
+
+
+
+LinkedList::LinkedList():head(nullptr),tail(nullptr),size(0)
+{
+}
+
+void LinkedList::insert(int value)
+{
+    Node* newNodePtr;
+    newNodePtr = new Node();
+    newNodePtr->data = value;
+    newNodePtr->next = nullptr;
+    if(head == nullptr){
+        head = newNodePtr;
+        tail = newNodePtr;
+    }
+    else{
+        newNodePtr->prev = tail;
+        tail->next = newNodePtr;
+        tail = newNodePtr;
+    }
+    size++;
+}
+
+void LinkedList::printList(){
+    Node* current = head;
+    while(current != nullptr){
+        cout << current->data << " ";
+        current = current->next;
+    }
+    cout << "\nWanna see me do it backwards?" << endl;
+    current = tail;
+    while(current !=head){
+        cout << current->data << " ";
+        current = current->prev;
+    }
+    cout << endl;
+}   
+
+LinkedList::~LinkedList(){
+    Node* current = head;
+    Node* nextNode;
+
+    while(current != nullptr){
+        nextNode = current->next;
+        delete current;
+        current = nextNode;
+    }
+
+    head = nullptr;
+    tail = nullptr;
+    size = 0;
+}
