@@ -3,11 +3,11 @@
 
 class Node {
 public:
-    int data;
+    std::string data;
     Node* next;
     Node* prev;
 
-    Node(int value = 0) : data(value), next(nullptr), prev(nullptr) {}
+    Node(std::string value = "") : data(value), next(nullptr), prev(nullptr) {}
 };
 #endif
 
@@ -17,12 +17,12 @@ class Sequence{
     private:
     Node* head;
     Node* tail;
-    int size;
+    size_t size;
 
     public:
     Sequence();
     ~Sequence();
-    void insert(int value);
+    void insert(std::string value);
     void printList();
 
     #endif

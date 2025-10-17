@@ -7,7 +7,9 @@
  */
 
 #include <iostream>
+#include <cstdlib>
 #include "Sequence.h"
+
 
 using namespace std;
 
@@ -17,7 +19,7 @@ Sequence::Sequence():head(nullptr),tail(nullptr),size(0)
 {
 }
 
-void Sequence::insert(int value)
+void Sequence::insert(string value)
 {
     Node* newNodePtr;
     newNodePtr = new Node();
@@ -35,6 +37,9 @@ void Sequence::insert(int value)
     size++;
 }
 
+/**
+ * Print list function for sequence will print the sequence to the terminal in order from head to tail then from tail to head
+ */
 void Sequence::printList(){
     Node* current = head;
     while(current != nullptr){
@@ -43,13 +48,16 @@ void Sequence::printList(){
     }
     cout << "\nWanna see me do it backwards?" << endl;
     current = tail;
-    while(current !=head){
+    while(current !=nullptr){
         cout << current->data << " ";
         current = current->prev;
     }
     cout << endl;
 }   
 
+/**
+ * Deconstructor for the sequence class. Fully removes it from memory.
+ */
 Sequence::~Sequence(){
     Node* current = head;
     Node* nextNode;
