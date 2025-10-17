@@ -13,11 +13,11 @@ using namespace std;
 
 
 
-LinkedList::LinkedList():head(nullptr),tail(nullptr),size(0)
+Sequence::Sequence():head(nullptr),tail(nullptr),size(0)
 {
 }
 
-void LinkedList::insert(int value)
+void Sequence::insert(int value)
 {
     Node* newNodePtr;
     newNodePtr = new Node();
@@ -35,7 +35,7 @@ void LinkedList::insert(int value)
     size++;
 }
 
-void LinkedList::printList(){
+void Sequence::printList(){
     Node* current = head;
     while(current != nullptr){
         cout << current->data << " ";
@@ -50,7 +50,7 @@ void LinkedList::printList(){
     cout << endl;
 }   
 
-LinkedList::~LinkedList(){
+Sequence::~Sequence(){
     Node* current = head;
     Node* nextNode;
 

@@ -11,17 +11,17 @@ public:
 };
 #endif
 
-#ifndef linkedList_h
-#define linkedList_h
-class LinkedList{
+#ifndef Sequence_h
+#define Sequence_h
+class Sequence{
     private:
     Node* head;
     Node* tail;
     int size;
 
     public:
-    LinkedList();
-    ~LinkedList();
+    Sequence();
+    ~Sequence();
     void insert(int value);
     void printList();
 
