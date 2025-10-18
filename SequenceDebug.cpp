@@ -11,30 +11,23 @@
 #include "Sequence.h"
 
 using namespace std;
-
+string make_value(int i) {
+    return string(1, 'A' + (i % 26));
+}
 int main() {
-    Sequence testSequence(10);
-    Sequence testSequence2(0);
+    try {
+        Sequence data1(3);
+        for (int i = 0; i < 3; i++) data1[i] = make_value(i);
+        Sequence data2(0);
+        data2 = data1;
+        data2[0] = make_value(99);
+        cout << "data1: " << data1 << endl;
+        cout << "data2: " << data2 << endl;
 
-    testSequence.insert(0,"go");
-    testSequence.insert(1,"to");
-    testSequence.insert(2,"Where");
-    testSequence.insert(3,"HO");
-    testSequence.insert(4,"HI");
-    testSequence.pushBack("fyuck");
-    testSequence2=testSequence2;
-    testSequence.clear();
-    // testSequence3.printList();
-    // testSequence.erase(2);
-    // cout << testSequence[99] << endl;
-    // testSequence.clear();
-    // testSequence.printList();
-    // testSequence.insert(0,"go");
-    // testSequence.insert(1,"to");
-    // testSequence.insert(2,"Where");
-    // testSequence.insert(3,"HO");
-    // testSequence.erase(3);
-    // testSequence.printList();
+    }
+    catch (exception& e) {
+        cout << "Exception: " << e.what() << endl;
+    }
 
     return 0;
 }

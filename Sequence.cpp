@@ -45,8 +45,21 @@ Sequence::Sequence(size_t sz):head(nullptr),tail(nullptr), sz(sz) {
 Sequence::Sequence(const Sequence& s):head(nullptr), tail(nullptr), sz(s.sz) {
     Node* current = s.head;
     while (current != nullptr) {
-        insert(current->index, current->data);
+        Node* copyNode = new Node();
+        copyNode->data = current->data;
+        copyNode->index = current->index;
+        copyNode->next = nullptr;
+        if(head == nullptr) {
+            head = copyNode;
+            tail = copyNode;
+        } else {
+            tail = copyNode;
+
+        }
+        sz++;
         current = current->next;
+
+
     }
 }
 
@@ -56,15 +69,10 @@ Sequence::Sequence(const Sequence& s):head(nullptr), tail(nullptr), sz(s.sz) {
  * @return a deep copy of the sequence s
  */
 Sequence& Sequence::operator= (const Sequence& s) {
-    if (this != &s) {
-        clear(); // clean memory to avoid a memory leak issue I was running into
-        Node* current = s.head;
-        while (current != nullptr) {
-            insert(current->index, current->data);
-        }
-        return *this;
+    Node* current = s.head;
+    while (current != nullptr) {
+
     }
-    return *this;
 }
 
 /**
@@ -80,6 +88,9 @@ void Sequence::insert(size_t position,string value)
     newNodePtr->data = value;
     newNodePtr->index = position;
     newNodePtr->next = nullptr;
+    if (position > sz) {
+        throw exception();
+    }
     if(head == nullptr){ //if head is empty set newNodePtr to be head and tail
         head = newNodePtr;
         tail = newNodePtr;
@@ -103,21 +114,25 @@ void Sequence::insert(size_t position,string value)
             }
             else { // else insert a new node into the position you wish it to be at then move every other node up
                 newNodePtr->prev = current->prev;
-                current->prev->next = newNodePtr;
+                if (current->prev != nullptr) {
+                    current->prev->next = newNodePtr;
+                }
                 newNodePtr->next = current;
                 current->prev = newNodePtr;
                 int i = 1;
-                while (current->next != nullptr) {
+                while (current->next != nullptr && current != nullptr) {
                     current->index = position + i;
                     i++;
                     current = current->next;
                 }
-                current->index = position+i; //only thing that the while loop doesnt check. Probably gonna change it to a for loop to avoid this.
+                if (current != nullptr) {
+                    current->index = position+i; //only thing that the while loop doesnt check. Probably gonna change it to a for loop to avoid this.
+                }
                 sz++;
             }
         }
         else {// throw out of bounds exception
-            cout << position << " is not present in the sequence. throw exception here" << endl;
+            throw exception();
         }
         // newNodePtr->prev = tail;
         // tail->next = newNodePtr;
@@ -150,8 +165,11 @@ std::string& Sequence::operator[](size_t position) {
         throw(exception());
     }
     else {
-        while (current->index != position) {
+        while (current != nullptr && current->index != position) {
             current = current->next;
+        }
+        if (current == nullptr) {
+            throw(exception());
         }
         return current->data;
     }
@@ -167,7 +185,7 @@ std::string& Sequence::operator[](size_t position) {
 string Sequence::front() {
     Node* current = head;
     if (head==nullptr) {
-        return "List is empty throw an exception";
+        throw exception();
     } else {
         return current->data;
     }
@@ -180,7 +198,7 @@ string Sequence::front() {
 string Sequence::back() {
     Node* current = tail;
     if (head==nullptr) {
-        return "List is empty throw an exception";
+        throw exception();
     }
     else {
         return current->data;
@@ -208,24 +226,27 @@ size_t Sequence::size() const{
  * Adds an item to the end of the linked list
  * @param item String value we are looking to add to the end of our linked list.
  */
-void Sequence::pushBack(string item) {
-    Node* newNodePtr = new Node();
-    Node* current = tail;
-    newNodePtr->data = item;
-    newNodePtr->index = sz;
-    newNodePtr->prev = current;
-    current->next = newNodePtr;
-    tail = newNodePtr;
-    sz++;
-
+void Sequence::push_back(string item) {
+    if (head == nullptr) {
+        throw exception();
+    } else {
+        Node* newNodePtr = new Node();
+        Node* current = tail;
+        newNodePtr->data = item;
+        newNodePtr->index = sz;
+        newNodePtr->prev = current;
+        current->next = newNodePtr;
+        tail = newNodePtr;
+        sz++;
+    }
 }
 
 /**
  * Deletes the last item in the linked list. If list is empty it will throw an exception
  */
-void Sequence::popBack() {
+void Sequence::pop_back() {
     if (head == nullptr) {
-        cout  << " is empty. throw exception" << endl;
+        throw exception();
     } else {
         Node* current = tail;
         if (tail->prev == nullptr) {
@@ -267,6 +288,28 @@ void Sequence::clear() {
 }
 
 /**
+ * overloads the << operator so that we can utilize it to get the data from within our nodes
+ * @param os output stream
+ * @param s the sequence we wish to output from
+ * @return an output stream object. Formatted as we have st out in this function
+ */
+ostream& operator<<(ostream& os, const Sequence& s) {
+
+    Node* current = s.head;
+    os << "[";
+    while (current != nullptr) {
+        if (current->next != nullptr) {
+            os << current->data << ", ";
+        } else {
+            os << current->data << "]";
+        }
+
+        current = current->next;
+    }
+    return os;
+}
+
+/**
  * Finds a node at a given position and eliminates it from the linked list
  * @param position index value of the node being sought out for deletion
  */
@@ -275,14 +318,14 @@ void Sequence::erase(size_t position) {
     Node* nextNode;
     Node* previousNode;
     if (head == nullptr || position >= sz) {
-        cout  << " is empty. throw an exception" << endl;
+        throw exception();
     }
     else {
         while (current->index != position) {
             nextNode = current->next;
             current = nextNode;
         }
-        if (current->index == position ) {
+        if (current->index == position ) { //handle scenario where it is head.
             nextNode = current->next;
             previousNode = current->prev;
             previousNode->next = nextNode;
@@ -302,9 +345,56 @@ void Sequence::erase(size_t position) {
 
             }
 
-
         }
         sz--;
     }
 
 }
+
+void Sequence::erase(size_t position, size_t count) {
+
+    Node* nextNode;
+    Node* previousNode;
+    if (head == nullptr || position >= sz || position + count >= sz) {
+        throw(exception());
+    } else {
+        for (int i = position; i <= position+count; i++) {
+            Node* current = head;
+            while (current->index != i) {
+                nextNode = current->next;
+                current = nextNode;
+            }
+            if (current->index == i ) {
+                nextNode = current->next;
+                if (current != head) { //handles if current is between 2 elements
+                    previousNode = current->prev;
+                    previousNode->next = nextNode;
+                    if (nextNode != nullptr) {
+                        nextNode->prev = previousNode;
+                    }
+                } else if (current == head && nextNode != nullptr) {
+                    nextNode->prev = nullptr;
+                    head = nextNode;
+                } else if (current == tail && previousNode != nullptr) {
+                    previousNode->next = nullptr;
+                    tail = nextNode;
+                } else {
+                    head = nullptr;
+                    tail = nullptr;
+                }
+                current->next = nullptr;
+                current->prev = nullptr;
+                delete current;
+
+            }
+            if (head != nullptr) {
+                sz--;
+            }
+
+        }
+    }
+}
+
+
+
+

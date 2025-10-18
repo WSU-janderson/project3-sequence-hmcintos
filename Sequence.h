@@ -32,6 +32,8 @@ public:
 
     void erase(size_t position);
 
+    void erase(size_t position, size_t count);
+
     void insert(size_t position, std::string value);
     void printList();
 
@@ -49,8 +51,9 @@ public:
 
     size_t size() const;
 
-    void pushBack(std::string item);
+    void push_back(std::string item);
 
-    void popBack();
+    void pop_back();
+    friend std::ostream& operator<<(std::ostream& os, const Sequence& s);
 };
 #endif
