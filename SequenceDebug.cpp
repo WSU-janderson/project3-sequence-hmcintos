@@ -21,15 +21,12 @@ int main() {
     testSequence.insert(3,"HO");
     testSequence.insert(4,"HI");
     testSequence.pushBack("fyuck");
-    testSequence.printList();
-    testSequence.popBack();
-    testSequence2.popBack();
-    testSequence2.insert(0,"go");
-    testSequence2.printList();
-    testSequence2.popBack();
-    testSequence.printList();
-    testSequence.~Sequence();
-    testSequence.printList();
+
+
+
+
+    string hello = testSequence2.front();
+    cout <<"The first element of test sequence is: " << hello << endl;
 
     return 0;
 }

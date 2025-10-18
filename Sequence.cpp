@@ -15,7 +15,11 @@
 using namespace std;
 
 
-
+/**
+ * Constructor for our sequence class. Initializes head, tail and size then reserves spots in memory with empty nodes
+ *
+ * @param size The size you want your linked list to be size_t value
+ */
 Sequence::Sequence(size_t size):head(nullptr),tail(nullptr), size(size) {
     for (size_t i = 0; i < size; i++) {
         Node* newNodePtr;
@@ -34,7 +38,11 @@ Sequence::Sequence(size_t size):head(nullptr),tail(nullptr), size(size) {
 }
 
 
-
+/**
+ * Will insert a new node or a string value into an existing node depeinding on position and availability
+ * @param position size_t value representing an index within our Linked lists bounds
+ * @param value String value we are looking to store within our list
+ */
 void Sequence::insert(size_t position,string value)
 {
     //generate new node
@@ -99,8 +107,22 @@ void Sequence::printList(){
         current = current->prev;
     }
     cout << endl;
-}   
+}
 
+
+string Sequence::front() {
+    Node* current = head;
+    if (head==nullptr) {
+        return "List is empty throw an exception";
+    } else {
+        return current->data;
+    }
+}
+
+/**
+ * Adds an item to the end of the linked list
+ * @param item String value we are looking to add to the end of our linked list.
+ */
 void Sequence::pushBack(string item) {
     Node* newNodePtr = new Node();
     Node* current = tail;
@@ -113,6 +135,9 @@ void Sequence::pushBack(string item) {
 
 }
 
+/**
+ * Deletes the last item in the linked list. If list is empty it will throw an exception
+ */
 void Sequence::popBack() {
     if (head == nullptr) {
         cout  << " is empty. throw exception" << endl;
@@ -127,7 +152,7 @@ void Sequence::popBack() {
             tail->next = nullptr;
             delete current;
         }
-
+        size--;
     }
 }
 

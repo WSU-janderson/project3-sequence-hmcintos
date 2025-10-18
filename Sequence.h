@@ -30,6 +30,8 @@ public:
     void insert(size_t position, std::string value);
     void printList();
 
+    std::string front();
+
     void pushBack(std::string item);
 
     void popBack();
