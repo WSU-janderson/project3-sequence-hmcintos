@@ -32,6 +32,8 @@ public:
 
     std::string front();
 
+    std::string back();
+
     void pushBack(std::string item);
 
     void popBack();

@@ -28,5 +28,7 @@ int main() {
     string hello = testSequence2.front();
     cout <<"The first element of test sequence is: " << hello << endl;
 
+    string back = testSequence2.back();
+    cout << "THe last element in testsequence is: " << back << endl;
     return 0;
 }

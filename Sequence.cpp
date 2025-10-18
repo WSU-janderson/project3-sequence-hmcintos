@@ -119,6 +119,16 @@ string Sequence::front() {
     }
 }
 
+string Sequence::back() {
+    Node* current = tail;
+    if (head==nullptr) {
+        return "List is empty throw an exception";
+    }
+    else {
+        return current->data;
+    }
+}
+
 /**
  * Adds an item to the end of the linked list
  * @param item String value we are looking to add to the end of our linked list.
