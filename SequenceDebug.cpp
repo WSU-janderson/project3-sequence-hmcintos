@@ -14,12 +14,15 @@ using namespace std;
 
 int main() {
     Sequence testSequence(10);
+    Sequence testSequence2(0);
     testSequence.insert(0,"go");
     testSequence.insert(1,"to");
     testSequence.insert(2,"Where");
     testSequence.insert(3,"HO");
     testSequence.insert(4,"HI");
     testSequence.pushBack("fyuck");
+    testSequence.printList();
+    testSequence.popBack();
     testSequence.printList();
     testSequence.~Sequence();
     testSequence.printList();

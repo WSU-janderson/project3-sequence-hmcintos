@@ -112,6 +112,18 @@ void Sequence::pushBack(string item) {
     size++;
 
 }
+
+void Sequence::popBack() {
+    if (head == nullptr) {
+        cout  << " is empty. throw exception" << endl;
+    } else {
+        Node* current = tail;
+        tail = tail->prev;
+        tail->next = nullptr;
+        delete current;
+    }
+}
+
 /**
  * Deconstructor for the sequence class. Fully removes it from memory.
  */

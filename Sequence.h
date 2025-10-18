@@ -31,5 +31,7 @@ public:
     void printList();
 
     void pushBack(std::string item);
+
+    void popBack();
 };
 #endif
