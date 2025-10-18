@@ -13,12 +13,12 @@
 using namespace std;
 
 int main() {
-    Sequence testSequence;
-    testSequence.insert("go");
-    testSequence.insert("to");
-    testSequence.insert("Where");
-    testSequence.insert("HO");
-    testSequence.insert("HI");
+    Sequence testSequence(10);
+    testSequence.insert(2,"go");
+    // testSequence.insert(0,"to");
+    // testSequence.insert(0,"Where");
+    // testSequence.insert(0,"HO");
+    // testSequence.insert(0,"HI");
     testSequence.printList();
     testSequence.~Sequence();
     testSequence.printList();

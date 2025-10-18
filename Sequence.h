@@ -4,10 +4,14 @@
 class Node {
 public:
     std::string data;
+    int index;
     Node* next;
     Node* prev;
 
-    Node(std::string value = "") : data(value), next(nullptr), prev(nullptr) {}
+    Node():next(nullptr),prev(nullptr) {}
+
+    explicit Node(std::string value) : data(value), next(nullptr), prev(nullptr) {}
+
 };
 #endif
 
@@ -19,12 +23,13 @@ class Sequence{
     Node* tail;
     size_t size;
 
-    public:
-    Sequence();
+
+public:
+    explicit Sequence(size_t size = 0);
     ~Sequence();
-    void insert(std::string value);
+    void insert(size_t position, std::string value);
     void printList();
 
-    #endif
+
 };
-    
+#endif
