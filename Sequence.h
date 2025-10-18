@@ -30,6 +30,8 @@ public:
 
     void clear();
 
+    void erase(size_t position);
+
     void insert(size_t position, std::string value);
     void printList();
 

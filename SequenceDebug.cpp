@@ -21,6 +21,7 @@ int main() {
     testSequence.insert(3,"HO");
     testSequence.insert(4,"HI");
     testSequence.pushBack("fyuck");
+    testSequence.erase(2);
     testSequence.printList();
     testSequence.clear();
     testSequence.printList();
@@ -28,9 +29,8 @@ int main() {
     testSequence.insert(1,"to");
     testSequence.insert(2,"Where");
     testSequence.insert(3,"HO");
+    testSequence.erase(3);
     testSequence.printList();
-
-
 
     return 0;
 }

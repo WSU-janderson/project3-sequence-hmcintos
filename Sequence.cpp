@@ -115,7 +115,10 @@ void Sequence::printList(){
     cout << endl;
 }
 
-
+/**
+ * Prints out the element at the head of the linked list
+ * @return String element at the head of the linked list
+ */
 string Sequence::front() {
     Node* current = head;
     if (head==nullptr) {
@@ -125,6 +128,10 @@ string Sequence::front() {
     }
 }
 
+/**
+ * Returns the element at the tail of the linked list
+ * @return String element stored at the tail of a linked list
+ */
 string Sequence::back() {
     Node* current = tail;
     if (head==nullptr) {
@@ -135,14 +142,23 @@ string Sequence::back() {
     }
 }
 
+/**
+ * Evaluates if the sequence is empty or not.
+ * @return true if empty false if not
+ */
 bool Sequence::empty() {
     return head == nullptr;
 }
 
+/**
+ * Returns the size of our sequence
+ * @return Size_t value representing the size of our sequence
+ */
 size_t Sequence::size() const{
 
     return sz;
 }
+
 /**
  * Adds an item to the end of the linked list
  * @param item String value we are looking to add to the end of our linked list.
@@ -203,4 +219,43 @@ void Sequence::clear() {
     head = nullptr;
     tail = nullptr;
     sz = 0;
+}
+
+void Sequence::erase(size_t position) {
+    Node* current = head;
+    Node* nextNode;
+    Node* previousNode;
+    if (head == nullptr || position >= sz) {
+        cout  << " is empty. throw an exception" << endl;
+    }
+    else {
+        while (current->index != position) {
+            nextNode = current->next;
+            current = nextNode;
+        }
+        if (current->index == position ) {
+            nextNode = current->next;
+            previousNode = current->prev;
+            previousNode->next = nextNode;
+            if (nextNode != nullptr) {
+                nextNode->prev = previousNode;
+            }
+            if (current == tail) {
+                tail = previousNode;
+            }
+            current->next = nullptr;
+            current->prev = nullptr;
+            delete current;
+
+            while (previousNode->next != nullptr) {
+                previousNode = previousNode->next;
+                previousNode->index --;
+
+            }
+
+
+        }
+        sz--;
+    }
+
 }
