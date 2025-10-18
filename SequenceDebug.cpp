@@ -30,5 +30,7 @@ int main() {
 
     string back = testSequence2.back();
     cout << "THe last element in testsequence is: " << back << endl;
+    cout << testSequence.empty() << endl;
+    cout << testSequence2.empty() << endl;
     return 0;
 }

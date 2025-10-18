@@ -34,6 +34,8 @@ public:
 
     std::string back();
 
+    bool empty();
+
     void pushBack(std::string item);
 
     void popBack();

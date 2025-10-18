@@ -129,6 +129,10 @@ string Sequence::back() {
     }
 }
 
+bool Sequence::empty() {
+    return head == nullptr;
+}
+
 /**
  * Adds an item to the end of the linked list
  * @param item String value we are looking to add to the end of our linked list.
