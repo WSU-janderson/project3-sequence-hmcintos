@@ -23,6 +23,10 @@ int main() {
     testSequence.pushBack("fyuck");
     testSequence.printList();
     testSequence.popBack();
+    testSequence2.popBack();
+    testSequence2.insert(0,"go");
+    testSequence2.printList();
+    testSequence2.popBack();
     testSequence.printList();
     testSequence.~Sequence();
     testSequence.printList();

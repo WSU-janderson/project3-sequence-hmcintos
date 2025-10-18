@@ -118,9 +118,16 @@ void Sequence::popBack() {
         cout  << " is empty. throw exception" << endl;
     } else {
         Node* current = tail;
-        tail = tail->prev;
-        tail->next = nullptr;
-        delete current;
+        if (tail->prev == nullptr) {
+            delete current;
+            tail = nullptr;
+            head = nullptr;
+        } else {
+            tail = tail->prev;
+            tail->next = nullptr;
+            delete current;
+        }
+
     }
 }
 
