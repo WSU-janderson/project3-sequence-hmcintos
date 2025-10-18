@@ -69,10 +69,28 @@ Sequence::Sequence(const Sequence& s):head(nullptr), tail(nullptr), sz(s.sz) {
  * @return a deep copy of the sequence s
  */
 Sequence& Sequence::operator= (const Sequence& s) {
+    if (this != &s) {
+        clear(); // idk why but seems to help me avoid a segmentation fault when I make sure the list is cleared before copying
+    }
+
     Node* current = s.head;
     while (current != nullptr) {
+        Node* copyNode = new Node(current->data);
+        copyNode->index = current->index;
+        copyNode->prev = tail;
+        copyNode->next = nullptr;
+        if(tail != nullptr) { //if tail exists
+            tail->next = copyNode;
+        } else { // else this is our first node
+            head = copyNode;
+        }
 
+
+        tail = copyNode;
+        sz++;
+        current = current->next;
     }
+    return *this;
 }
 
 /**
