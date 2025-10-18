@@ -63,7 +63,13 @@ void Sequence::insert(size_t position,string value)
                 //cout << current->index << endl;
                 current = current->next;
             }
-            if (current->data == "") { //if current is one of the empty nodes we set up in our constructor set data
+            if (current->next == nullptr) {
+                current->next = newNodePtr;
+                newNodePtr->prev = current;
+                sz++;
+                tail = newNodePtr;
+            }
+            else if (current->data == "") { //if current is one of the empty nodes we set up in our constructor set data
                 current->data = value;
             }
             else { // else insert a new node into the position you wish it to be at then move every other node up
@@ -178,6 +184,13 @@ void Sequence::popBack() {
  * Deconstructor for the sequence class. Fully removes it from memory.
  */
 Sequence::~Sequence(){
+    clear();
+}
+
+/**
+ * Clears the Sequence so more it can be reset and used again.
+ */
+void Sequence::clear() {
     Node* current = head;
     Node* nextNode;
 

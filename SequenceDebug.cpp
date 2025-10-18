@@ -21,16 +21,16 @@ int main() {
     testSequence.insert(3,"HO");
     testSequence.insert(4,"HI");
     testSequence.pushBack("fyuck");
+    testSequence.printList();
+    testSequence.clear();
+    testSequence.printList();
+    testSequence.insert(0,"go");
+    testSequence.insert(1,"to");
+    testSequence.insert(2,"Where");
+    testSequence.insert(3,"HO");
+    testSequence.printList();
 
 
 
-
-    string hello = testSequence2.front();
-    cout <<"The first element of test sequence is: " << hello << endl;
-
-    string back = testSequence2.back();
-    cout << "THe last element in testsequence is: " << back << endl;
-    cout << testSequence.size() << endl;
-    cout << testSequence2.size() << endl;
     return 0;
 }

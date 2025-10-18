@@ -27,6 +27,9 @@ class Sequence{
 public:
     explicit Sequence(size_t size = 0);
     ~Sequence();
+
+    void clear();
+
     void insert(size_t position, std::string value);
     void printList();
 
