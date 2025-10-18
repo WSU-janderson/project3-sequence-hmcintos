@@ -35,6 +35,10 @@ public:
     void insert(size_t position, std::string value);
     void printList();
 
+    std::string &operator[](size_t position);
+
+    Sequence(const Sequence &s);
+
     std::string front();
 
     std::string back();

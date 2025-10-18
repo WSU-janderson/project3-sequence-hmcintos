@@ -9,6 +9,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
+#include <exception>
 #include "Sequence.h"
 
 
@@ -113,6 +114,28 @@ void Sequence::printList(){
         current = current->prev;
     }
     cout << endl;
+}
+
+std::string& Sequence::operator[](size_t position) {
+    Node* current = head;
+    if (position >= sz) {
+        throw(exception());
+    }
+    else {
+        while (current->index != position) {
+            current = current->next;
+        }
+        return current->data;
+    }
+
+}
+
+Sequence::Sequence(const Sequence& s):head(nullptr), tail(nullptr), sz(s.sz) {
+    Node* current = s.head;
+    while (current != nullptr) {
+        insert(current->index, current->data);
+        current = current->next;
+    }
 }
 
 /**
@@ -221,6 +244,10 @@ void Sequence::clear() {
     sz = 0;
 }
 
+/**
+ * Finds a node at a given position and eliminates it from the linked list
+ * @param position index value of the node being sought out for deletion
+ */
 void Sequence::erase(size_t position) {
     Node* current = head;
     Node* nextNode;
