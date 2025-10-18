@@ -30,6 +30,6 @@ public:
     void insert(size_t position, std::string value);
     void printList();
 
-
+    void pushBack(std::string item);
 };
 #endif

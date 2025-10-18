@@ -37,46 +37,50 @@ Sequence::Sequence(size_t size):head(nullptr),tail(nullptr), size(size) {
 
 void Sequence::insert(size_t position,string value)
 {
+    //generate new node
     Node* newNodePtr;
     newNodePtr = new Node();
     newNodePtr->data = value;
     newNodePtr->index = position;
     newNodePtr->next = nullptr;
-    if(head == nullptr){
+    if(head == nullptr){ //if head is empty set newNodePtr to be head and tail
         head = newNodePtr;
         tail = newNodePtr;
+        size++;
     }
-    else{
+    else{ //else find the position for the insertion
         Node* current = head;
-        if (position <= size) {
+        if (position <= size && position >= 0) { //if position is not out of bounds run this check
             while (current->index != position && current->next != nullptr) {
-                cout << current->index << endl;
+                //cout << current->index << endl;
                 current = current->next;
             }
-            newNodePtr->prev = current->prev;
-            current->prev->next = newNodePtr;
-            newNodePtr->next = current;
-            current->prev = newNodePtr;
-            int i = 1;
-            while (current->next != nullptr) {
-                current->index = position + i;
-                i++;
-                current = current->next;
+            if (current->data == "") { //if current is one of the empty nodes we set up in our constructor set data
+                current->data = value;
             }
-            current->index = position+i; //only thing that the while loop doesnt check. Probably gonna change it to a for loop to avoid this.
-
-
-            cout << newNodePtr->index << endl;
-            cout << newNodePtr->data << endl;
-            cout << "exited the insertion loop" << endl;
-        }else {
-            cout << position << " is not present in the sequence." << endl;
+            else { // else insert a new node into the position you wish it to be at then move every other node up
+                newNodePtr->prev = current->prev;
+                current->prev->next = newNodePtr;
+                newNodePtr->next = current;
+                current->prev = newNodePtr;
+                int i = 1;
+                while (current->next != nullptr) {
+                    current->index = position + i;
+                    i++;
+                    current = current->next;
+                }
+                current->index = position+i; //only thing that the while loop doesnt check. Probably gonna change it to a for loop to avoid this.
+                size++;
+            }
+        }
+        else {// throw out of bounds exception
+            cout << position << " is not present in the sequence. throw exception here" << endl;
         }
         // newNodePtr->prev = tail;
         // tail->next = newNodePtr;
         // tail = newNodePtr;
     }
-    size++;
+
 }
 
 /**
@@ -85,18 +89,29 @@ void Sequence::insert(size_t position,string value)
 void Sequence::printList(){
     Node* current = head;
     while(current != nullptr){
-        cout << current->index << ":" << current->data << endl;
+        cout << current->index << ":" << current->data << " ";
         current = current->next;
     }
     cout << "\nWanna see me do it backwards?" << endl;
     current = tail;
     while(current !=nullptr){
-        cout << current->data << " ";
+        cout << current->index << ":" << current->data << " ";
         current = current->prev;
     }
     cout << endl;
 }   
 
+void Sequence::pushBack(string item) {
+    Node* newNodePtr = new Node();
+    Node* current = tail;
+    newNodePtr->data = item;
+    newNodePtr->index = size;
+    newNodePtr->prev = current;
+    current->next = newNodePtr;
+    tail = newNodePtr;
+    size++;
+
+}
 /**
  * Deconstructor for the sequence class. Fully removes it from memory.
  */
