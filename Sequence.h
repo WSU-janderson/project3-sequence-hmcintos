@@ -39,6 +39,8 @@ public:
 
     Sequence(const Sequence &s);
 
+    Sequence &operator=(const Sequence &s);
+
     std::string front();
 
     std::string back();

@@ -22,9 +22,9 @@ int main() {
     testSequence.insert(3,"HO");
     testSequence.insert(4,"HI");
     testSequence.pushBack("fyuck");
-    Sequence testSequence3(testSequence);
+    testSequence2=testSequence2;
     testSequence.clear();
-    testSequence3.printList();
+    // testSequence3.printList();
     // testSequence.erase(2);
     // cout << testSequence[99] << endl;
     // testSequence.clear();

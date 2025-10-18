@@ -38,6 +38,34 @@ Sequence::Sequence(size_t sz):head(nullptr),tail(nullptr), sz(sz) {
     }
 }
 
+/**
+ * Deep copy constructor makes a deep copy of a given Sequence with this functions
+ * @param s the sequence you wish to copy.
+ */
+Sequence::Sequence(const Sequence& s):head(nullptr), tail(nullptr), sz(s.sz) {
+    Node* current = s.head;
+    while (current != nullptr) {
+        insert(current->index, current->data);
+        current = current->next;
+    }
+}
+
+/**
+ * OVerloads the = operator to run the copy constructor
+ * @param s sequence you wish to copy
+ * @return a deep copy of the sequence s
+ */
+Sequence& Sequence::operator= (const Sequence& s) {
+    if (this != &s) {
+        clear(); // clean memory to avoid a memory leak issue I was running into
+        Node* current = s.head;
+        while (current != nullptr) {
+            insert(current->index, current->data);
+        }
+        return *this;
+    }
+    return *this;
+}
 
 /**
  * Will insert a new node or a string value into an existing node depeinding on position and availability
@@ -130,13 +158,7 @@ std::string& Sequence::operator[](size_t position) {
 
 }
 
-Sequence::Sequence(const Sequence& s):head(nullptr), tail(nullptr), sz(s.sz) {
-    Node* current = s.head;
-    while (current != nullptr) {
-        insert(current->index, current->data);
-        current = current->next;
-    }
-}
+
 
 /**
  * Prints out the element at the head of the linked list
