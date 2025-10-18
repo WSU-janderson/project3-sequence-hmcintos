@@ -20,8 +20,8 @@ using namespace std;
  *
  * @param size The size you want your linked list to be size_t value
  */
-Sequence::Sequence(size_t size):head(nullptr),tail(nullptr), size(size) {
-    for (size_t i = 0; i < size; i++) {
+Sequence::Sequence(size_t sz):head(nullptr),tail(nullptr), sz(sz) {
+    for (size_t i = 0; i < sz; i++) {
         Node* newNodePtr;
         newNodePtr = new Node();
         newNodePtr->index = i;
@@ -54,11 +54,11 @@ void Sequence::insert(size_t position,string value)
     if(head == nullptr){ //if head is empty set newNodePtr to be head and tail
         head = newNodePtr;
         tail = newNodePtr;
-        size++;
+        sz++;
     }
     else{ //else find the position for the insertion
         Node* current = head;
-        if (position <= size && position >= 0) { //if position is not out of bounds run this check
+        if (position <= sz && position >= 0) { //if position is not out of bounds run this check
             while (current->index != position && current->next != nullptr) {
                 //cout << current->index << endl;
                 current = current->next;
@@ -78,7 +78,7 @@ void Sequence::insert(size_t position,string value)
                     current = current->next;
                 }
                 current->index = position+i; //only thing that the while loop doesnt check. Probably gonna change it to a for loop to avoid this.
-                size++;
+                sz++;
             }
         }
         else {// throw out of bounds exception
@@ -133,6 +133,10 @@ bool Sequence::empty() {
     return head == nullptr;
 }
 
+size_t Sequence::size() const{
+
+    return sz;
+}
 /**
  * Adds an item to the end of the linked list
  * @param item String value we are looking to add to the end of our linked list.
@@ -141,11 +145,11 @@ void Sequence::pushBack(string item) {
     Node* newNodePtr = new Node();
     Node* current = tail;
     newNodePtr->data = item;
-    newNodePtr->index = size;
+    newNodePtr->index = sz;
     newNodePtr->prev = current;
     current->next = newNodePtr;
     tail = newNodePtr;
-    size++;
+    sz++;
 
 }
 
@@ -166,7 +170,7 @@ void Sequence::popBack() {
             tail->next = nullptr;
             delete current;
         }
-        size--;
+        sz--;
     }
 }
 
@@ -185,5 +189,5 @@ Sequence::~Sequence(){
 
     head = nullptr;
     tail = nullptr;
-    size = 0;
+    sz = 0;
 }

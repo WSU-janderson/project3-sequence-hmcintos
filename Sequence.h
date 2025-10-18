@@ -21,7 +21,7 @@ class Sequence{
     private:
     Node* head;
     Node* tail;
-    size_t size;
+    size_t sz;
 
 
 public:
@@ -35,6 +35,8 @@ public:
     std::string back();
 
     bool empty();
+
+    size_t size() const;
 
     void pushBack(std::string item);
 
